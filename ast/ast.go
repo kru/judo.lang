@@ -1,7 +1,7 @@
 package ast
 
 // expression -> produce value
-// stattement -> not produce value
+// statement -> not produce value
 import "github.com/kru/judo.lang/token"
 
 type Node interface {
@@ -30,15 +30,20 @@ func (p *Program) TokenLiteral() string {
 	}
 }
 
-type Identifier struct {
-	Token token.Token // token.IDENT
-	Value string
-}
-
 type LetStatement struct {
 	Token token.Token // the token.LET
 	Name *Identifier
 	Value Expression
+}
+
+func (ls *LetStatement) statementNode() {}
+func (ls *LetStatement) TokenLiteral() string {
+	return ls.Token.Literal
+}
+
+type Identifier struct {
+	Token token.Token // token.IDENT
+	Value string
 }
 
 func (i *Identifier) expressionNode() {}
